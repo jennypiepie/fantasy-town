@@ -1,7 +1,7 @@
 import {Canvas} from '@react-three/fiber'
-import SceneContainer from './SceneContainer';
+import SceneContainer from './SceneContainer'
 
-console.log(11);
+
 function App() {
   return <Canvas
     gl={{ antialias: true, logarithmicDepthBuffer: true }}
@@ -9,6 +9,7 @@ function App() {
   >
     <SceneContainer />
   </Canvas>
+
 }
 
 export default App;
