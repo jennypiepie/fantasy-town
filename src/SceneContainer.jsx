@@ -1,11 +1,9 @@
-import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
+import { PerspectiveCamera } from '@react-three/drei';
 import { useLoader,useThree } from '@react-three/fiber';
 import { Suspense, useEffect, useRef} from 'react';
-import { CubeTextureLoader,Vector3 } from 'three';
+import { CubeTextureLoader} from 'three';
 import Town from './Town';
 import Player from './Player';
-import { useSnapshot } from "valtio";
-import store from './store/Store';
 
 function SceneContainer() {
     const { scene } = useThree();
@@ -15,9 +13,13 @@ function SceneContainer() {
     const [envMap] = useLoader(CubeTextureLoader, [urls])
     scene.background = envMap
 
+    const colliders = useRef(null)
+    const getColliders = (collider) => {
+        colliders.current = collider
+    }
+
+
     useEffect(() => {
-        // moveBox(snap.camera,snap.player);
-        // console.log(snap.camera,snap.player);
     },[])
 
     return (
@@ -38,8 +40,8 @@ function SceneContainer() {
             >
                 <orthographicCamera attach='shadow-camera' args={[-500,500,500,-500,1,500]} />
             </directionalLight>
-            <Town />
-            <Player />
+            <Town getColliders={getColliders} />
+            <Player colliders={colliders}/>
             {/* <axesHelper args={[8000, 8000, 8000]} /> */}
         </Suspense>
     );

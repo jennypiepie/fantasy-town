@@ -14,7 +14,7 @@ export const useInput = () => {
 
     useEffect(() => {
         const handleKeyDown = (e) => {
-            setAction(keys[e.code])
+            keys[e.code]?setAction(keys[e.code]):setAction('Idle')
         }
         const handleKeyUp = (e) => {
             setAction('Idle')

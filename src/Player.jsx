@@ -3,13 +3,13 @@ import { OrbitControls,useAnimations} from '@react-three/drei';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
 import { TextureLoader } from 'three/src/loaders/TextureLoader';
 import { useEffect,useRef } from 'react'; 
-import {AnimationMixer,Vector3} from 'three';
-import { useSnapshot } from "valtio";
-import store from './store/Store';
+import { AnimationMixer, Vector3, Raycaster } from 'three';
+// import { useSnapshot } from "valtio";
+// import store from './store/Store';
 
 import { useInput } from './hooks/useInput';
 
-function Player() {
+function Player(props) {
     // const snap = useSnapshot(store)
     const action = useInput()
 
@@ -51,44 +51,54 @@ function Player() {
     function move(action) {
         const p1 = meshRef.current.position
         const p2 = camera.position
-
         const v1 = p1.clone().sub(p2)
         v1.y = 0
-        const length = v1.length()
-
         const v2 = new Vector3(v1.z, 0, -v1.x)
-        // console.log(action);
+        let dir = v1
+        let step = 3
+        let blocked = false
 
-        let dir = 1
-        let v = v1 
         switch (action) {
             case 'Walking':
-                dir = 1
+                dir = v1.normalize()
                 break
             case 'Backwards':
-                dir = -1
+                dir = v1.negate().normalize()
                 break
             case 'Left':
-                dir = 1
-                v = v2
+                dir = v2.normalize()
                 break
             case 'Right':
-                dir = -1
-                v = v2
+                dir = v2.negate().normalize()
+                break
+            case 'Running':
+                step = 10
                 break
             default:
                 return
         }
-        
-        rotateModel()
-        const step = 3
-        meshRef.current.position['x'] += dir * v['x'] / length * step
-        camera.position['x'] += dir * v['x'] / length * step
-        meshRef.current.position['z'] += dir * v['z'] / length* step
-        camera.position['z'] += dir * v['z'] / length * step
+        // console.log(dir);
 
-        controlsRef.current.target.set( ...meshRef.current.position )
-        // controlsRef.current.update()
+        const rayOrigin = p1.clone()
+        rayOrigin.y = 0
+        const raycaster = new Raycaster()
+        raycaster.set(rayOrigin, dir)
+        const intersects = raycaster.intersectObjects(props.colliders.current)
+        // console.log(intersects);
+
+        if (intersects.length > 0) {
+            if(intersects[0].distance < 50) blocked = true
+        }
+
+        rotateModel()
+        if (!blocked) {
+            meshRef.current.position['x'] += dir['x'] * step
+            camera.position['x'] += dir['x'] * step
+            meshRef.current.position['z'] += dir['z'] * step
+            camera.position['z'] += dir['z'] * step
+            controlsRef.current.target.set( ...meshRef.current.position )
+        }
+
     }
 
     function rotateModel() {
@@ -127,7 +137,7 @@ function Player() {
                 child.material.map = texture
             }
         })
-        console.log(camera,meshRef.current);
+        // console.log(camera,meshRef.current);
     }, [])
 
 
@@ -149,7 +159,11 @@ function Player() {
 
     return (
         <>
-            <OrbitControls ref={controlsRef} target={[3120, 0, -173]} />
+            <OrbitControls ref={controlsRef} target={[3120, 0, -173]}
+                minDistance={500} maxDistance={3000}
+                minPolarAngle={0}
+                maxPolarAngle={Math.PI/2.1}
+                />
             <mesh ref={meshRef} position={[3120, 0, -173]} rotation={[0, 3, 0]}>
             <primitive object={fbx}/>
             </mesh>
