@@ -1,9 +1,10 @@
 import { PerspectiveCamera } from '@react-three/drei';
 import { useLoader,useThree } from '@react-three/fiber';
-import { Suspense, useEffect, useRef} from 'react';
+import { Suspense, useEffect, useRef,lazy} from 'react';
 import { CubeTextureLoader} from 'three';
 import Town from './Town';
-import Player from './Player';
+// import Player from './Player';
+const Player = lazy(()=>import('./Player'))
 
 function SceneContainer() {
     const { scene } = useThree();

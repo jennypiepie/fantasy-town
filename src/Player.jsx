@@ -31,7 +31,6 @@ function Player(props) {
     const texture = useLoader(TextureLoader,`/textures/people/SimplePeople_${person}_${color}.png`)
     const fbx = useLoader(FBXLoader, `/models/people/${person}.fbx`)
 
-
     const postures = useLoader(FBXLoader, anims.map((anim) => `/models/anims/${anim}.fbx`))
 
     const mixer = new AnimationMixer(fbx)
