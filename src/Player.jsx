@@ -26,10 +26,10 @@ function Player(props) {
     const person = people[4]
     const anims = ['Walking', 'Backwards', 'Left', 'Right', 'Running', 'Idle']
 
-    const personTexture = '/textures/people/HousewifeWhite.png'
+    const personTexture = '/textures/people/DoctorBlack.png'
     const personModel = '/models/people/Housewife.fbx'
 
-    // const texture = useTexture(personTexture)
+    const texture = useTexture(personTexture)
     const fbx = useLoader(FBXLoader,personModel)
 
     const postures = useLoader(FBXLoader, anims.map((anim) =>`/models/anims/${anim}.fbx`))
@@ -134,7 +134,7 @@ function Player(props) {
             if (child.isMesh) {
                 child.castShadow = true
                 child.receiveShadow = true
-                // child.material.map = texture
+                child.material.map = texture
             }
         })
         // console.log(camera,meshRef.current);
