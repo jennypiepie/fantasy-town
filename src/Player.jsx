@@ -28,10 +28,10 @@ function Player(props) {
     const person = people[4]
     const anims = ['Walking', 'Backwards', 'Left', 'Right', 'Running','Idle']
 
-    const texture = useLoader(TextureLoader,process.env.PUBLIC_URL+`/textures/people/SimplePeople_${person}_${color}.png`)
-    const fbx = useLoader(FBXLoader, process.env.PUBLIC_URL+`/models/people/${person}.fbx`)
+    const texture = useLoader(TextureLoader,'/textures/people/SimplePeople_Housewife_White.png')
+    const fbx = useLoader(FBXLoader,'/models/people/Housewife.fbx')
 
-    const postures = useLoader(FBXLoader, anims.map((anim) => process.env.PUBLIC_URL+`/models/anims/${anim}.fbx`))
+    const postures = useLoader(FBXLoader, anims.map((anim) =>`/models/anims/${anim}.fbx`))
 
     const mixer = new AnimationMixer(fbx)
     const actions = {
