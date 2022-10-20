@@ -26,8 +26,8 @@ function Player(props) {
     const person = people[4]
     const anims = ['Walking', 'Backwards', 'Left', 'Right', 'Running','Idle']
 
-    const texture = useTexture('/textures/people/SimplePeople_Housewife_White.png')
-    const fbx = useLoader(FBXLoader,'/models/people/Housewife.fbx')
+    const texture = useTexture(process.env.PUBLIC_URL + '/textures/people/SimplePeople_Housewife_White.png')
+    const fbx = useLoader(FBXLoader,process.env.PUBLIC_URL + '/models/people/Housewife.fbx')
 
     const postures = useLoader(FBXLoader, anims.map((anim) =>`/models/anims/${anim}.fbx`))
 
