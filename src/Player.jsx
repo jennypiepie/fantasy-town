@@ -25,8 +25,8 @@ function Player(props) {
     // const person = people[Math.floor(Math.random() * people.length)]
     const person = people[4]
     const anims = ['Walking', 'Backwards', 'Left', 'Right', 'Running', 'Idle']
-    
-    const personTexture = '/textures/people/SimplePeople_Housewife_White.png'
+
+    const personTexture = '/textures/people/HousewifeWhite.png'
     const personModel = '/models/people/Housewife.fbx'
 
     const texture = useTexture(personTexture)
