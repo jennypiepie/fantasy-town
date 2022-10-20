@@ -4,7 +4,7 @@ import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
 
 function Town(props) {
     const colliders = []
-    const fbx = useLoader(FBXLoader,process.env.PUBLIC_URL+'/models/town.fbx')
+    const fbx = useLoader(FBXLoader,'/models/town.fbx')
 
     useEffect(() => {
         if (!fbx) return

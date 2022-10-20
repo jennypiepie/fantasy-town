@@ -24,10 +24,13 @@ function Player(props) {
     const people = ['BeachBabe', 'BusinessMan', 'Doctor', 'FireFighter', 'Housewife', 'Policeman', 'Prostitute', 'Punk', 'RiotCop', 'Roadworker', 'Robber', 'Sheriff', 'Streetman', 'Waitress']
     // const person = people[Math.floor(Math.random() * people.length)]
     const person = people[4]
-    const anims = ['Walking', 'Backwards', 'Left', 'Right', 'Running','Idle']
+    const anims = ['Walking', 'Backwards', 'Left', 'Right', 'Running', 'Idle']
+    
+    const personTexture = '/textures/people/SimplePeople_Housewife_White.png'
+    const personModel = '/models/people/Housewife.fbx'
 
-    const texture = useTexture(process.env.PUBLIC_URL + '/textures/people/SimplePeople_Housewife_White.png')
-    const fbx = useLoader(FBXLoader,process.env.PUBLIC_URL + '/models/people/Housewife.fbx')
+    const texture = useTexture(personTexture)
+    const fbx = useLoader(FBXLoader,personModel)
 
     const postures = useLoader(FBXLoader, anims.map((anim) =>`/models/anims/${anim}.fbx`))
 
