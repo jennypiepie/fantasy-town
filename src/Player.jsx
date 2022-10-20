@@ -1,11 +1,9 @@
 import { useLoader, useFrame, useThree } from '@react-three/fiber';
-import { OrbitControls,useAnimations} from '@react-three/drei';
+import { OrbitControls,useAnimations,useTexture} from '@react-three/drei';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
-import { TextureLoader } from 'three/src/loaders/TextureLoader';
 import { useEffect,useRef } from 'react'; 
 import { AnimationMixer, Vector3, Raycaster } from 'three';
-// import { useSnapshot } from "valtio";
-// import store from './store/Store';
+
 
 import { useInput } from './hooks/useInput';
 
@@ -28,7 +26,7 @@ function Player(props) {
     const person = people[4]
     const anims = ['Walking', 'Backwards', 'Left', 'Right', 'Running','Idle']
 
-    const texture = useLoader(TextureLoader,'/textures/people/SimplePeople_Housewife_White.png')
+    const texture = useTexture('/textures/people/SimplePeople_Housewife_White.png')
     const fbx = useLoader(FBXLoader,'/models/people/Housewife.fbx')
 
     const postures = useLoader(FBXLoader, anims.map((anim) =>`/models/anims/${anim}.fbx`))
