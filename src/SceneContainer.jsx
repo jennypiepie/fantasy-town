@@ -1,10 +1,9 @@
 import { PerspectiveCamera } from '@react-three/drei';
 import { useLoader,useThree } from '@react-three/fiber';
-import { Suspense, useEffect, useRef,lazy} from 'react';
+import { Suspense, useEffect, useRef} from 'react';
 import { CubeTextureLoader} from 'three';
 import Town from './Town';
-// import Player from './Player';
-const Player = lazy(()=>import('./Player'))
+import Player from './Player';
 
 function SceneContainer() {
     const { scene } = useThree();
@@ -30,7 +29,7 @@ function SceneContainer() {
                 aspect={window.innerWidth / window.innerHeight}
                 near={10}
                 far = {200000}
-                position={[3120, 300, -1100]} />
+                position={[3530,-20,-9100]} />
             <ambientLight color='#aaaaaa' />
             <directionalLight color='#aaaaaa'
                 position={[30, 100, 40]}

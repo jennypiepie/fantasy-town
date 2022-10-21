@@ -9,7 +9,7 @@ export const useInput = () => {
         KeyA: 'Left',
         KeyD: 'Right',
         ShiftLeft: 'Running',
-        Space: 'Jump',
+        // Space: 'Jump',
     }
 
     useEffect(() => {

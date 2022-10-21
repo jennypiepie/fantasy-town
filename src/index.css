@@ -1,7 +1,73 @@
 html,body,#root{
   width: 100%;
   height: 100%;
-
   margin: 0;
   overflow: hidden;
+}
+
+.content{
+  height: 100%;
+}
+
+.wrapper{
+  height: 100%;
+  position: relative;
+}
+
+.selector{
+  position: absolute;
+  background: #a5f7c7;
+  width: 260px;
+  border-radius: 10px;
+  top: 40%;
+  left: 60px;
+  color: #335136;
+  font-weight: 900;
+}
+
+.selector .title{
+  text-align: center;
+  height: 30px;
+  line-height: 30px;
+  color: #31792c;
+  font-size: larger;
+}
+
+.selector .select{
+  position: relative;
+  height: 50px;
+  line-height: 50px;
+  margin-left: 20px;
+}
+.selector .select .name{
+  margin-right: 50px;
+  color: #31792c;
+}
+
+.selector .select .next{
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  top: 10px;
+  border: 15px solid transparent;
+  border-left: 15px solid #335136;
+}
+
+.confirm{
+  position: absolute;
+  top: 40%;
+  right: 60px;
+  border: none;
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+  background: #a5f7c7;
+  color: #335136;
+  font-weight: 900;
+  font-size: 30px;
+  transition: all 0.5s;
+  box-shadow: 5px 5px 10px 2px rgba(0, 0, 0, 0.2);
+}
+.confirm:hover{
+  font-size: 40px;
 }
