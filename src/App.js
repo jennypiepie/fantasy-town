@@ -35,7 +35,7 @@ function App() {
             <span className="name">role</span>
             {snap.person}
             <span className="next" onClick={() => {
-              pNum < 13 && setPNum(pNum + 1) ;
+              pNum < 12 && setPNum(pNum + 1) ;
               store.person = snap.people[pNum]
             }}></span>
           </div>
