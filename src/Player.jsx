@@ -9,7 +9,6 @@ import { useSnapshot } from 'valtio';
 import { useInput } from './hooks/useInput';
 
 function Player(props) {
-    const origin = new Vector3(3530,-20,-9112)
     const snap = useSnapshot(store)
     const action = useInput()
 
@@ -88,7 +87,7 @@ function Player(props) {
         const raycaster2 = new Raycaster()
         raycaster2.set(rayOrigin2, dir2)
         const intersects2 = raycaster2.intersectObjects(props.colliders.current)
-        console.log(intersects2);
+        // console.log(intersects2);
         const targetY = rayOrigin2.y - intersects2[0].distance
         if (targetY > p1.y) {
             // p1.y = targetY

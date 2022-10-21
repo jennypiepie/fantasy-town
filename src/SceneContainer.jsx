@@ -27,9 +27,9 @@ function SceneContainer() {
             <PerspectiveCamera makeDefault  //默认相机
                 fov={45}
                 aspect={window.innerWidth / window.innerHeight}
-                near={10}
-                far = {200000}
-                position={[3530,-20,-9100]} />
+                near={100}
+                far = {20000}
+                position={[3530,50,-8600]} />
             <ambientLight color='#aaaaaa' />
             <directionalLight color='#aaaaaa'
                 position={[30, 100, 40]}
@@ -41,8 +41,12 @@ function SceneContainer() {
                 <orthographicCamera attach='shadow-camera' args={[-500,500,500,-500,1,500]} />
             </directionalLight>
             <Town getColliders={getColliders} />
-            <Player colliders={colliders}/>
-            {/* <axesHelper args={[8000, 8000, 8000]} /> */}
+            <Player colliders={colliders} />
+            <mesh position={[3800, -30, -4600]}  rotation={[-Math.PI / 2, 0, 0]} >
+                <planeBufferGeometry attach="geometry" args={[22000, 22000]} />
+                <meshStandardMaterial attach="material" color="#b5b39c" />
+            </mesh>
+            {/* <axesHelper args={[16000, 16000, 16000]} /> */}
         </Suspense>
     );
 }
