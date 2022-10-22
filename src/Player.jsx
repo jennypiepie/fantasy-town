@@ -48,35 +48,16 @@ function Player(props) {
         let blocked = false
 
         if (action === 'Jumping') {
-            // 跳跃的最大高度
-            const max = 200
-            // 初始高度
             const initY = p1.y
-            // 是否在下坠
-            let down = false
-            // 递增和递减系数
-            let t = 1
-            const x = 0.25
-            // 跳跃
-            let interval = setInterval(() => {
-                const downNumber = down ? -1 : 1
-                p1.y += 0.5 * downNumber * t
-                camera.position.y += 0.5 * downNumber * t
-                t += downNumber * x
-                // 到最高点开始下坠
-                if (p1.y >= max) {
-                down = true
-                }
-                // 到最低点结束跳跃
-                if (p1.y <= initY && down) {
+            if (p1.y < 100) {
+                p1.y += 3
+            }else{
+                p1.y -= 3
+            }
+            if (p1.y > initY) {
                 p1.y = initY
-                clearInterval(interval)
-                }
-
-                // rotateModel()
-                controlsRef.current.target.set( ...p1 )
-
-            }, 30)
+            }
+            controlsRef.current.target.set( ...p1 )
         }
 
         switch (action) {
@@ -181,7 +162,6 @@ function Player(props) {
 
 
     useEffect(() => {
-    console.log(action,actions[action]);
         if (currentAction.current !== action) {
             const nextAction = actions[action]
             const current = actions[currentAction.current]

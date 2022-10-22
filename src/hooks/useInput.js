@@ -17,7 +17,12 @@ export const useInput = () => {
             keys[e.code]?setAction(keys[e.code]):setAction('Idle')
         }
         const handleKeyUp = (e) => {
-            setAction('Idle')
+            if (e.code === 'Space') {
+                setTimeout(()=>setAction('Idle'),1500)
+            } else {
+                setAction('Idle') 
+            }
+
         }
         document.addEventListener('keydown', handleKeyDown)
         document.addEventListener('keyup',handleKeyUp)
