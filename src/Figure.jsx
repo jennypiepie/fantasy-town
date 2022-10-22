@@ -1,6 +1,4 @@
-import { useLoader } from '@react-three/fiber';
-import { useTexture,PerspectiveCamera,useAnimations} from '@react-three/drei';
-import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
+import { useTexture,PerspectiveCamera,useFBX} from '@react-three/drei';
 import { Suspense, useEffect} from 'react'; 
 import store from './store/Store';
 import { useSnapshot } from 'valtio';
@@ -11,15 +9,10 @@ function Figure() {
     
 
     const texture = useTexture(`/textures/people/SimplePeople_${snap.person}_${snap.color}.png`)
-    const fbx =useLoader(FBXLoader, `/models/people/${snap.person}.fbx`)
+    const fbx =useFBX(`/models/people/${snap.person}.fbx`)
 
-    // const posture = useLoader(FBXLoader, `/models/anims/Talking.fbx`)
-    // const { actions } = useAnimations(fbx.animations, fbx)
-    // const action = actions['mixamo.com']
-    
     useEffect(() => {
         if (!fbx) return
-        // action.play()
         fbx.traverse(function (child) {
             if (child.isMesh) {
                 child.castShadow = true

@@ -1,6 +1,5 @@
-import { useLoader, useFrame, useThree } from '@react-three/fiber';
-import { OrbitControls,useAnimations,useTexture} from '@react-three/drei';
-import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
+import { useFrame, useThree } from '@react-three/fiber';
+import { OrbitControls,useAnimations,useTexture,useFBX} from '@react-three/drei';
 import { useEffect,useRef } from 'react'; 
 import { AnimationMixer, Vector3, Raycaster } from 'three';
 import store from './store/Store';
@@ -19,10 +18,10 @@ function Player(props) {
     const currentAction = useRef('Idle')
 
     const texture = useTexture(`/textures/people/SimplePeople_${snap.person}_${snap.color}.png`)
-    const fbx = useLoader(FBXLoader,`/models/people/${snap.person}.fbx`)
+    const fbx = useFBX(`/models/people/${snap.person}.fbx`)
     
-    const anims = ['Walking', 'Backwards', 'Left', 'Right', 'Running', 'Idle']
-    const postures = useLoader(FBXLoader, anims.map((anim) =>`/models/anims/${anim}.fbx`))
+    const anims = ['Walking', 'Backwards', 'Left', 'Right', 'Running', 'Jumping','Idle']
+    const postures = useFBX(anims.map((anim) =>`/models/anims/${anim}.fbx`))
 
     const mixer = new AnimationMixer(fbx)
     const actions = {
@@ -31,7 +30,8 @@ function Player(props) {
         'Left': mixer.clipAction(postures[2].animations[0]),
         'Right': mixer.clipAction(postures[3].animations[0]),
         'Running': mixer.clipAction(postures[4].animations[0]),
-        'Idle': mixer.clipAction(postures[5].animations[0]),
+        'Jumping':mixer.clipAction(postures[5].animations[0]),
+        'Idle': mixer.clipAction(postures[6].animations[0]),
     }
     actions[action].play()
     // const { actions } = useAnimations(postures[0].animations, fbx)
@@ -46,6 +46,38 @@ function Player(props) {
         let dir = v1
         let step = 3
         let blocked = false
+
+        if (action === 'Jumping') {
+            // 跳跃的最大高度
+            const max = 200
+            // 初始高度
+            const initY = p1.y
+            // 是否在下坠
+            let down = false
+            // 递增和递减系数
+            let t = 1
+            const x = 0.25
+            // 跳跃
+            let interval = setInterval(() => {
+                const downNumber = down ? -1 : 1
+                p1.y += 0.5 * downNumber * t
+                camera.position.y += 0.5 * downNumber * t
+                t += downNumber * x
+                // 到最高点开始下坠
+                if (p1.y >= max) {
+                down = true
+                }
+                // 到最低点结束跳跃
+                if (p1.y <= initY && down) {
+                p1.y = initY
+                clearInterval(interval)
+                }
+
+                // rotateModel()
+                controlsRef.current.target.set( ...p1 )
+
+            }, 30)
+        }
 
         switch (action) {
             case 'Walking':
@@ -91,10 +123,7 @@ function Player(props) {
         const targetY = rayOrigin2.y - intersects2[0].distance
         if (targetY > p1.y) {
             // p1.y = targetY
-            p1.y += 3
-            if (p1.y > targetY) {
-                p1.y = targetY
-            }
+            p1.y = 0.8 * p1.y + 0.2 * targetY
         } else {
             p1.y -= 1
             if (p1.y < targetY) {
@@ -152,6 +181,7 @@ function Player(props) {
 
 
     useEffect(() => {
+    console.log(action,actions[action]);
         if (currentAction.current !== action) {
             const nextAction = actions[action]
             const current = actions[currentAction.current]

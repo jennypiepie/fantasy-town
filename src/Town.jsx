@@ -1,10 +1,9 @@
-import { useLoader } from '@react-three/fiber';
 import { useEffect } from 'react';
-import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
+import {useFBX} from '@react-three/drei';
 
 function Town(props) {
     const colliders = []
-    const fbx = useLoader(FBXLoader,'/models/town.fbx')
+    const fbx = useFBX('/models/town.fbx')
 
     useEffect(() => {
         if (!fbx) return
