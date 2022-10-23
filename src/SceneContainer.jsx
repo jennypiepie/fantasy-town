@@ -27,7 +27,7 @@ function SceneContainer() {
             <PerspectiveCamera makeDefault  //默认相机
                 fov={45}
                 aspect={window.innerWidth / window.innerHeight}
-                near={100}
+                near={50}
                 far = {20000}
                 position={[3530,50,-8600]} />
             <ambientLight color='#aaaaaa' />

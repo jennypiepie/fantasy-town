@@ -7,8 +7,8 @@ import { useSnapshot } from 'valtio';
 
 function App() {
   const [show, setShow] = useState(true)
-  const [cNum, setCNum] = useState(0)
-  const [pNum, setPNum] = useState(0)
+  const [cNum, setCNum] = useState(1)
+  const [pNum, setPNum] = useState(1)
 
   const snap = useSnapshot(store)
 

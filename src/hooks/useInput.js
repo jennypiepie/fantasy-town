@@ -18,7 +18,7 @@ export const useInput = () => {
         }
         const handleKeyUp = (e) => {
             if (e.code === 'Space') {
-                setTimeout(()=>setAction('Idle'),1500)
+                setTimeout(()=>setAction('Idle'),1000)
             } else {
                 setAction('Idle') 
             }

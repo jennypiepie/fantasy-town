@@ -8,7 +8,7 @@ function Figure() {
     const snap = useSnapshot(store)
     
 
-    const texture = useTexture(`/textures/people/SimplePeople_${snap.person}_${snap.color}.png`)
+    const texture = useTexture(`/textures/people2/SimplePeople_${snap.person}_${snap.color}.png`)
     const fbx =useFBX(`/models/people/${snap.person}.fbx`)
 
     useEffect(() => {

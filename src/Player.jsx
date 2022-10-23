@@ -1,5 +1,5 @@
 import { useFrame, useThree } from '@react-three/fiber';
-import { OrbitControls,useAnimations,useTexture,useFBX} from '@react-three/drei';
+import { OrbitControls,useAnimations,useTexture,useFBX, useGLTF} from '@react-three/drei';
 import { useEffect,useRef } from 'react'; 
 import { AnimationMixer, Vector3, Raycaster } from 'three';
 import store from './store/Store';
@@ -17,11 +17,12 @@ function Player(props) {
 
     const currentAction = useRef('Idle')
 
-    const texture = useTexture(`/textures/people/SimplePeople_${snap.person}_${snap.color}.png`)
+    const texture = useTexture(`/textures/people2/SimplePeople_${snap.person}_${snap.color}.png`)
     const fbx = useFBX(`/models/people/${snap.person}.fbx`)
     
     const anims = ['Walking', 'Backwards', 'Left', 'Right', 'Running', 'Jumping','Idle']
-    const postures = useFBX(anims.map((anim) =>`/models/anims/${anim}.fbx`))
+    // const postures = useFBX(anims.map((anim) => `/models/anims/${anim}.fbx`))
+    const postures = useGLTF(anims.map((anim) => `/models/anims/${anim}.glb`))
 
     const mixer = new AnimationMixer(fbx)
     const actions = {
@@ -37,6 +38,7 @@ function Player(props) {
     // const { actions } = useAnimations(postures[0].animations, fbx)
     // const action = actions['mixamo.com']
 
+    let up = true
     function move(action) {
         const p1 = meshRef.current.position
         const p2 = camera.position
@@ -46,16 +48,19 @@ function Player(props) {
         let dir = v1
         let step = 3
         let blocked = false
-
+        const initY = -20
+        
         if (action === 'Jumping') {
-            const initY = p1.y
-            if (p1.y < 100) {
-                p1.y += 3
-            }else{
-                p1.y -= 3
+            if (up) {
+                p1.y += 4
+            } else {
+                p1.y -= 4
+                if (p1.y < initY) {
+                    p1.y = initY
+                }
             }
-            if (p1.y > initY) {
-                p1.y = initY
+            if (p1.y > 100) {
+                up = false
             }
             controlsRef.current.target.set( ...p1 )
         }
@@ -106,7 +111,7 @@ function Player(props) {
             // p1.y = targetY
             p1.y = 0.8 * p1.y + 0.2 * targetY
         } else {
-            p1.y -= 1
+            p1.y -= 9
             if (p1.y < targetY) {
                 p1.y = targetY
             }
@@ -149,7 +154,6 @@ function Player(props) {
     useEffect(() => {
         if (!fbx) return
         // console.log(fbx);
-        
         fbx.traverse(function (child) {
             if (child.isMesh) {
                 child.castShadow = true
@@ -176,7 +180,8 @@ function Player(props) {
             <OrbitControls ref={controlsRef} target={[3530,-20,-9112]}
                 minDistance={500} maxDistance={3000}
                 minPolarAngle={0}
-                maxPolarAngle={Math.PI/2.1}
+                maxPolarAngle={Math.PI / 2.1}
+                enablePan={false}
                 />
             <mesh ref={meshRef} position={[3530,-20,-9112]}>
             <primitive object={fbx}/>
