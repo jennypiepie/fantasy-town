@@ -2,7 +2,7 @@ import { useTexture,PerspectiveCamera,useFBX} from '@react-three/drei';
 import { Suspense, useEffect} from 'react'; 
 import store from './store/Store';
 import { useSnapshot } from 'valtio';
-
+import Loading from './components/Loading';
 
 function Figure() {
     const snap = useSnapshot(store)
@@ -25,7 +25,7 @@ function Figure() {
 
     return (
         <>
-        <Suspense>
+        <Suspense fallback={Loading}>
             <PerspectiveCamera makeDefault
                 fov={45}
                 aspect={window.innerWidth / window.innerHeight}
