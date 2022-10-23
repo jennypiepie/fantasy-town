@@ -38,7 +38,7 @@ function SceneContainer() {
                 shadow-mapSize-width={1024}
                 shadow-mapSize-height={1024}
             >
-                <orthographicCamera attach='shadow-camera' args={[-500,500,500,-500,1,500]} />
+                <orthographicCamera attach='shadow-camera' args={[-5000,5000,5000,-5000,1,5000]} />
             </directionalLight>
             <Town getColliders={getColliders} />
             <Player colliders={colliders} />

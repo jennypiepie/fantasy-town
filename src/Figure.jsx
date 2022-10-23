@@ -15,8 +15,6 @@ function Figure() {
         if (!fbx) return
         fbx.traverse(function (child) {
             if (child.isMesh) {
-                child.castShadow = true
-                child.receiveShadow = true
                 child.material.map = texture
             }
         })

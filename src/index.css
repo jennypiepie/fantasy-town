@@ -15,37 +15,36 @@ html,body,#root{
   position: relative;
 }
 
-.selector{
+.card{
   position: absolute;
-  background: #a5f7c7;
-  width: 260px;
   border-radius: 10px;
-  top: 40%;
-  left: 60px;
+  top: 50%;
+  transform: translateY(-50%);
   color: #335136;
   font-weight: 900;
 }
 
-.selector .title{
+.card .title{
   text-align: center;
+  margin: 8px 20px 0 20px;
   height: 30px;
   line-height: 30px;
   color: #31792c;
   font-size: larger;
 }
 
-.selector .select{
+.card .select{
   position: relative;
   height: 50px;
   line-height: 50px;
   margin-left: 20px;
 }
-.selector .select .name{
+.card .select .name{
   margin-right: 50px;
   color: #31792c;
 }
 
-.selector .select .next{
+.card .select .next{
   cursor: pointer;
   position: absolute;
   right: 0;
@@ -54,21 +53,24 @@ html,body,#root{
   border-left: 15px solid #335136;
 }
 
+.card .intro{
+  margin: 20px;
+}
 .confirm{
   position: absolute;
-  top: 40%;
   right: 60px;
+  bottom: 60px;
   border: none;
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   border-radius: 40px;
   background: #a5f7c7;
   color: #335136;
   font-weight: 900;
-  font-size: 30px;
+  font-size: 20px;
   transition: all 0.5s;
   box-shadow: 5px 5px 10px 2px rgba(0, 0, 0, 0.2);
 }
 .confirm:hover{
-  font-size: 40px;
+  font-size: 30px;
 }

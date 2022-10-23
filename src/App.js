@@ -21,7 +21,7 @@ function App() {
       >
         <Figure />
       </Canvas>
-        <div className="selector">
+        <div className="card" style={{ left: '60px', background:'#82b798'}}>
           <div className="title">Choose your character</div>
           <div className="select">
             <span className="name">skin</span>
@@ -39,8 +39,15 @@ function App() {
               store.person = snap.people[pNum]
             }}></span>
           </div>
-      </div>
-      <button className="confirm" onClick={() =>setShow(false)}>GO</button>
+        </div>
+        <div className="card" style={{ right: '30px' }}>
+          <div className="intro">
+            <h1>"WASD" to MOVE</h1>
+            <h1>"leftShift" to RUN</h1>
+            <h1>"space" to JUMP</h1>
+          </div>
+        </div>
+        <button className="confirm" onClick={() =>setShow(false)}>GO</button>
     </div>
     <div className="wrapper" style={{display:show?'none':'block'}}>
     <Canvas
