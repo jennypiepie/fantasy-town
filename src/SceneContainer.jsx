@@ -1,23 +1,14 @@
-import { PerspectiveCamera } from '@react-three/drei';
-import { useLoader,useThree } from '@react-three/fiber';
+import { PerspectiveCamera,Environment } from '@react-three/drei';
 import { Suspense, useEffect, useRef} from 'react';
-import { CubeTextureLoader} from 'three';
 import Town from './Town';
 import Player from './Player';
 
-function SceneContainer() {
-    const { scene } = useThree();
-    const urls = ['px', 'nx', 'py', 'ny', 'pz', 'nz'].map(name => {
-        return `/textures/environment/${name}.jpg`
-    })
-    const [envMap] = useLoader(CubeTextureLoader, [urls])
-    scene.background = envMap
 
+function SceneContainer() {
     const colliders = useRef(null)
     const getColliders = (collider) => {
         colliders.current = collider
     }
-
 
     useEffect(() => {
     },[])
@@ -40,6 +31,11 @@ function SceneContainer() {
             >
                 <orthographicCamera attach='shadow-camera' args={[-5000,5000,5000,-5000,1,5000]} />
             </directionalLight>
+            <Environment
+                background={'only'}
+                files={['px.jpg', 'nx.jpg', 'py.jpg', 'ny.jpg', 'pz.jpg', 'nz.jpg']}
+                path="/textures/environment/"
+            />
             <Town getColliders={getColliders} />
             <Player colliders={colliders} />
             <mesh position={[3800, -30, -4600]}  rotation={[-Math.PI / 2, 0, 0]} >
